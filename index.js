@@ -6,7 +6,9 @@ const { exec } = require('child_process');
 let successCount = 0;
 
 app.get('/', function(req, res){
-  exec('docker run wil-pandas-site:latest', function(error, stdout, stderr) {
+  const code = req.query.code || "1 + 1";
+
+  exec(`docker run --env CODE="${code}" wil-pandas-site`, function(error, stdout, stderr) {
     if (error) {
       res.send(`Error! ${error}`);
     } else if (stdout) {
